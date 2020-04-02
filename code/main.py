@@ -7,7 +7,7 @@ from azureml.core.authentication import ServicePrincipalAuthentication
 
 from azureml.core import Experiment
 from fetchmetric import getMetrics
-
+from utils import *
 
 class AMLConfigurationException(Exception):
     pass
@@ -33,6 +33,12 @@ def main():
         print("::error::Please paste output of `az ad sp create-for-rbac --name <your-sp-name> --role contributor --scopes /subscriptions/<your-subscriptionId>/resourceGroups/<your-rg> --sdk-auth` as value of secret variable: AZURE_CREDENTIALS. The JSON should include the following keys: 'tenantId', 'clientId', 'clientSecret' and 'subscriptionId'.")
         raise AMLConfigurationException(f"Incorrect or poorly formed output from azure credentials saved in AZURE_CREDENTIALS secret. See setup in https://github.com/Azure/aml-workspace/blob/master/README.md")
         
+    print("::debug::Checking provided parameters")
+    required_parameters_provided(
+        parameters=azure_credentials,
+        keys=["tenantId", "clientId", "clientSecret", "subscriptionId"],
+        message="Required parameter(s) not found in your azure credentials saved in AZURE_CREDENTIALS secret for logging in to the workspace. Please provide a value for the following key(s): "
+    )
 
     if azureml_workSpaceName == None or azure_credentials == {}:
         print(" credentials empty or worksapce name can not be empty")
