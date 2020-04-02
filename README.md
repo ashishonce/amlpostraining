@@ -1,7 +1,6 @@
 # amlpostraining
-# amlworkspace
 
-An action to connect to your AML workspace or to create a new one. 
+An action to connect to your AML workspace and fetch the run metrics. 
 
 
 
