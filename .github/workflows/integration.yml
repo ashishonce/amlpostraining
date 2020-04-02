@@ -1,0 +1,24 @@
+name: Integration Test
+on:
+  push:
+    paths:
+      - 'code/**'
+      - '.github/workflows/integration.yml'
+      - 'action.yml'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Out Repository
+        id: checkout_repository
+        uses: actions/checkout@master
+
+      - name: Self test
+        id: postrainingTest
+        uses: ashishonce/amlpostraining@master
+        with:
+          azureCredentials: ${{ secrets.AZURE_CREDENTIALS }}
+          workspaceName: "ashkumadevtestwkrspace"
+          experimentName: "train-on-amlcompute"
+          commit_SHA: "7a6fe10d22b5c44be55698f6d123c6480451e18b"
+          

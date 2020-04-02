@@ -1,0 +1,23 @@
+name: "action to create or use an existing workspace for aml"
+description: "read previously added file in by the action"
+author: "ashishonce"
+inputs:
+  azureCredentials:
+    description: "azure credentials"
+    required: true
+  workspaceName:
+    description: "name of the workspace to use"
+    required: true
+  experimentName:
+    description: "name of the experiment, it will be used to refer to an existing experiment or create a new one"
+    required: true
+  commit_SHA:
+    description: "commit SHA for which you want to fetch the metric"
+    required: true
+    default: "7a6fe10d22b5c44be55698f6d123c6480451e18b"
+branding:
+  icon: chevron-up
+  color: 'green'
+runs:
+  using: "docker"
+  image: "Dockerfile"
